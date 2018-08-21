@@ -10,6 +10,8 @@ $yellow: rgb(220, 255, 65);
 $magenta: rgb(248, 32, 255);
 $cyan: rgb(65, 255, 245);
 
+$blend-mode: multiply;
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -45,13 +47,17 @@ body {
   font-size: 120px;
   font-family: $point-font;
   position: relative;
+  > div {
+    @include flex-center;
+    flex-direction: column;
+  }
 }
 .typo {
   padding: 0 10px;
   position: relative;
   &_item {
     top: 0;
-    mix-blend-mode: multiply;
+    mix-blend-mode: $blend-mode;
     &:nth-child(1){
       position: absolute;
       left: 0;
@@ -114,12 +120,12 @@ $circle-range: 0;
   bottom: 20px;
   right: 20px;
   z-index: 999;
-  mix-blend-mode: multiply;
+  mix-blend-mode: $blend-mode;
   .enter_circle {
     @include btn-shape;
     position: absolute;
     transition: transform-origin 0.3s;
-    mix-blend-mode: multiply;
+    mix-blend-mode: $blend-mode;
     &--yellow {
       background-color: $yellow;
       transform-origin: 40% 60%;
