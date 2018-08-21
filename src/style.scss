@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css?family=Chivo:900i|East+Sea+Dokdo|Press+Start+2P');
+
+$eng-font: 'Chivo';
+$kor-font: 'East Sea Dokdo';
+$point-font: $eng-font, $kor-font, sans-serif;
+
+$fun-font: 'Press Start 2P', cursive;
+
+$yellow: rgb(220, 255, 65);
+$magenta: rgb(248, 32, 255);
+$cyan: rgb(65, 255, 245);
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin offscreen {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+.acc-hidden {
+  @include offscreen;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.main {
+  width: 100%;
+  height: 100%;
+  @include flex-center;
+  flex-direction: column;
+  font-size: 120px;
+  font-family: $point-font;
+  position: relative;
+}
+.typo {
+  padding: 0 10px;
+  position: relative;
+  &_item {
+    top: 0;
+    mix-blend-mode: multiply;
+    &:nth-child(1){
+      position: absolute;
+      left: 0;
+      color: $yellow;
+      z-index: 1;
+    }
+    &:nth-child(2){
+      position: relative;
+      color: $magenta;
+      z-index: 2;
+    }
+    &:nth-child(3){
+      position: absolute;
+      left: 20px;
+      color: $cyan;
+      z-index: 3;
+    }
+  }
+}
+
+@mixin btn-shape {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+
+$circle-range: 0;
+
+@keyframes longCircle1 {
+  from {
+    transform: rotate(0deg) translate($circle-range) rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg) translate($circle-range) rotate(-360deg);
+  }
+}
+@keyframes longCircle2 {
+  from {
+    transform: rotate(120deg) translate($circle-range) rotate(120deg);
+  }
+  to {
+    transform: rotate(-240deg) translate($circle-range) rotate(-240deg);
+  }
+}
+@keyframes longCircle3 {
+  from {
+    transform: rotate(240deg) translate($circle-range) rotate(240deg);
+  }
+  to {
+    transform: rotate(-120deg) translate($circle-range) rotate(-120deg);
+  }
+}
+
+.btn_enter {
+  @include flex-center;
+  @include btn-shape;
+  color: #fff;
+  text-decoration: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  mix-blend-mode: multiply;
+  .enter_circle {
+    @include btn-shape;
+    position: absolute;
+    transition: transform-origin 0.3s;
+    mix-blend-mode: multiply;
+    &--yellow {
+      background-color: $yellow;
+      transform-origin: 40% 60%;
+      animation: longCircle1 1.8s linear infinite;
+    }
+    &--magenta{
+      background-color: $magenta;
+      transform-origin: 40% 60%;
+      animation: longCircle2 1.8s linear infinite;
+    }
+    &--cyan {
+      background-color: $cyan;
+      transform-origin: 40% 60%;
+      animation: longCircle3 1.8s linear infinite;
+    }
+  }
+  &:hover {
+    .enter_circle {
+      transform-origin: 50% 50%;
+    }
+  }
+  .text {
+    color: #fff;
+    font-family: $fun-font;
+    position: relative;
+    border-bottom: 1px solid #fff;
+  }
+}
