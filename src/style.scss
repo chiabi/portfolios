@@ -52,17 +52,46 @@ body {
     flex-direction: column;
   }
 }
+
+$shake: 5px;
+
+@keyframes Shake1 {
+  0% {
+    transform: translate($shake, $shake);
+  }
+  50% {
+    transform: translate(-$shake, -$shake);
+  }
+  100% {
+    transform: translate($shake, $shake);
+  }
+}
+
+@keyframes Shake2 {
+  0% {
+    transform: translate(-$shake, -$shake);
+  }
+  50% {
+    transform: translate($shake, $shake);
+  }
+  100% {
+    transform: translate(-$shake, -$shake);
+  }
+}
+
 .typo {
   padding: 0 10px;
   position: relative;
   &_item {
     top: 0;
     mix-blend-mode: $blend-mode;
+    transition: transform 0.3;
     &:nth-child(1){
       position: absolute;
       left: 0;
       color: $yellow;
       z-index: 1;
+      animation: Shake1 0.2s infinite;
     }
     &:nth-child(2){
       position: relative;
@@ -74,6 +103,10 @@ body {
       left: 20px;
       color: $cyan;
       z-index: 3;
+      animation: Shake2 0.2s infinite;
+    }
+    .is-stop & {
+      animation: none;
     }
   }
 }

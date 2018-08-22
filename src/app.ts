@@ -8,11 +8,37 @@ class CreateTypo {
     this.wrap = wrap;
   }
 
-  setSize() {
+  getSize() {
     const width: number = this.wrap.offsetWidth;
     const height: number = this.wrap.offsetHeight;
+    return {width, height}
+  }
+
+  setSize() {
+    const {width, height} = this.getSize();
     const size: number = Math.min(width, height) / 6;
     this.wrap.style.fontSize = `${size}px`;
+  }
+
+  calculateMousePosition (evt: MouseEvent) {
+    const mouseX = evt.clientX;
+    const mouseY = evt.clientY;
+    return {mouseX, mouseY}
+  }
+
+  positionAnimation (evt: MouseEvent, befores: NodeList, afters: NodeList) {
+    const {width, height} = this.getSize();
+    const {mouseX, mouseY} = this.calculateMousePosition(evt);
+    const moveX = width - mouseX - 70;
+    const moveY = height - mouseY - 70;
+    console.log(moveX, moveY)
+    befores.forEach((item: HTMLElement) => {
+      item.style.transform = `translate(-${moveX}px, -${moveY}px)`
+    })
+    afters.forEach((item: HTMLElement) => {
+      item.style.transform = `translate(${moveX}px, ${moveY}px)`
+    })
+    
   }
   
   draw() {
@@ -23,6 +49,7 @@ class CreateTypo {
       for (let i = 0; i < 3; i++) {
         const typoItemDiv: HTMLElement = document.createElement('div');
         typoItemDiv.classList.add('typo_item');
+        typoItemDiv.classList.add(`typo_item--${i + 1}`);
         typoItemDiv.textContent = typo;
         typoDiv.appendChild(typoItemDiv);
       }
@@ -54,3 +81,16 @@ function actualResizeHandler() {
 }
 
 window.addEventListener('resize', resizeThrottler, false);
+
+const enterButton = document.querySelector('.btn_enter');
+enterButton.addEventListener('mouseenter', e => {
+  typoMain.classList.add('is-stop')
+});
+enterButton.addEventListener('mouseleave', e => {
+  typoMain.classList.remove('is-stop')
+});
+// const befores: NodeList = document.querySelectorAll('.typo_item--1')
+// const afters: NodeList = document.querySelectorAll('.typo_item--3')
+// document.addEventListener('mouseover', e => {
+//   typoAnimation.positionAnimation(e, befores, afters);
+// });
