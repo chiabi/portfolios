@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Chivo:900i|East+Sea+Dokdo|Press+Start+2P');
+// @import url('https://fonts.googleapis.com/css?family=Chivo:900i|East+Sea+Dokdo|Press+Start+2P');
 
 $eng-font: 'Chivo';
 $kor-font: 'East Sea Dokdo';
@@ -53,7 +53,7 @@ body {
   }
 }
 
-$shake: 5px;
+$shake: 0.5%;
 
 @keyframes Shake1 {
   0% {

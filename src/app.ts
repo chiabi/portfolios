@@ -16,7 +16,7 @@ class CreateTypo {
 
   setSize() {
     const {width, height} = this.getSize();
-    const size: number = Math.min(width, height) / 6;
+    const size: number = Math.min(width, height) / (typos.length + 1);
     this.wrap.style.fontSize = `${size}px`;
   }
 
@@ -87,6 +87,12 @@ enterButton.addEventListener('mouseenter', e => {
   typoMain.classList.add('is-stop')
 });
 enterButton.addEventListener('mouseleave', e => {
+  typoMain.classList.remove('is-stop')
+});
+enterButton.addEventListener('touchstart', e => {
+  typoMain.classList.add('is-stop')
+});
+enterButton.addEventListener('touchend', e => {
   typoMain.classList.remove('is-stop')
 });
 // const befores: NodeList = document.querySelectorAll('.typo_item--1')
